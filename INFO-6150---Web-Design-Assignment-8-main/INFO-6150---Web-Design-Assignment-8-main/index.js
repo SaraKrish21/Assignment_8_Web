@@ -11,7 +11,7 @@ app.use(express.json());
 var result;
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/chamandb');
+mongoose.connect('mongodb://127.0.0.1:27017/saranyadb');
 var datab = mongoose.connection;
 datab.on('error', console.log.bind(console, "connection error"));
 datab.once('open', function (_callback) {
@@ -27,8 +27,8 @@ const sch = {
     password: String
 }
 
-const monmodel = mongoose.model("users_chaman", sch);
-const uri = 'mongodb://127.0.0.1:27017/chamandb';
+const monmodel = mongoose.model("users_saranya", sch);
+const uri = 'mongodb://127.0.0.1:27017/saranyadb';
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true});
 
 
@@ -63,7 +63,7 @@ app.post('/user/create', function (req, res) {
         "password": hash
     }
 
-    datab.collection('users_chaman').insertOne(input, function (err) {
+    datab.collection('users_saranya').insertOne(input, function (err) {
         if (err) throw err;
         console.log("Record added!");
     });
@@ -85,7 +85,7 @@ app.put("/user/edit", function (req, res) {
             name: newusername, password: newuserpass
         }
     }
-    datab.collection('users_chaman').updateOne(filter, updateData, options, function (err) {
+    datab.collection('users_saranya').updateOne(filter, updateData, options, function (err) {
         if (err) throw err;
         console.log("Database edited successfully");
     });
@@ -101,7 +101,7 @@ app.delete('/user/delete', function (req, res) {
     var input = {
         "email": useremail
     }
-    datab.collection('users_chaman').deleteOne(input, function (err) {
+    datab.collection('users_saranya').deleteOne(input, function (err) {
         if (err) console.log(err);
         console.log("The user record has been deleted!")
     });
@@ -116,7 +116,7 @@ app.delete('/user/delete', function (req, res) {
 app.get('/user/getAll', async (req, res) => {
     console.log("Calling the get all Api");
   
-    const result = await datab.collection('users_chaman').find().toArray();
+    const result = await datab.collection('users_saranya').find().toArray();
   
     res.json(result);
   });
